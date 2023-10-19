@@ -1,128 +1,71 @@
 const Property = require('../models/propertyModel');
 
+// Function to seed data for properties
 const seedData = async (req, res) => {
   try {
+    // TODO: Define the logic to seed property data
     const properties = [
-      {
-        title: 'Modern Downtown Loft',
-        location: 'New York',
-        price: 2800,
-        type: 'Apartment',
-      },
-      {
-        title: 'Charming Suburban Home',
-        location: 'Los Angeles',
-        price: 3200,
-        type: 'House',
-      },
-      {
-        title: 'Luxurious Penthouse Suite',
-        location: 'San Francisco',
-        price: 5500,
-        type: 'Apartment',
-      },
-      {
-        title: 'Spacious Family House',
-        location: 'Chicago',
-        price: 2900,
-        type: 'House',
-      },
-      {
-        title: 'Sleek City Condo',
-        location: 'Miami',
-        price: 3800,
-        type: 'Condo',
-      },
-      {
-        title: 'Cozy Mountain Cabin',
-        location: 'Denver',
-        price: 1800,
-        type: 'Cabin',
-      },
-      {
-        title: 'Modern Beachfront Villa',
-        location: 'Los Angeles',
-        price: 6000,
-        type: 'Villa',
-      },
-      {
-        title: 'Urban Studio Apartment',
-        location: 'San Francisco',
-        price: 2000,
-        type: 'Apartment',
-      },
-      {
-        title: 'Rustic Countryside Cottage',
-        location: 'Nashville',
-        price: 2200,
-        type: 'Cottage',
-      },
-      {
-        title: 'Designer Urban Loft',
-        location: 'New York',
-        price: 3200,
-        type: 'Apartment',
-      },
+      // TODO: Define an array of property objects with fields like 'title', 'location', 'price', and 'type'
     ];
 
-    await Property.insertMany(properties);
-    res.status(200).json({ message: 'Data seeded successfully' });
+    // TODO: Insert the property data into the database
+
+    // TODO: Respond with a success message
   } catch (error) {
+    // Handle errors by responding with a 500 Internal Server Error
     res.status(500).json({ message: 'Internal server error', error });
   }
 };
 
+// Function to get all properties
 const getAllProperties = async (req, res) => {
   try {
-    const properties = await Property.find();
-    res.status(200).json(properties);
+    // TODO: Define the logic to retrieve all properties from the database
+    // TODO: Respond with the list of properties
   } catch (error) {
+    // Handle errors by responding with a 500 Internal Server Error
     res.status(500).json({ message: 'Internal server error', error });
   }
 };
 
+// Function to create a new property
 const createProperty = async (req, res) => {
   const { title, location, price, type } = req.body;
 
   try {
-    const property = new Property({ title, location, price, type });
-    await property.save();
-    res.status(201).json({ message: 'Property added successfully', property });
+    // TODO: Define the logic to create a new property based on the provided data
+    // TODO: Save the new property to the database
+    // TODO: Respond with a success message and the newly created property
   } catch (error) {
+    // Handle errors by responding with a 500 Internal Server Error
     res.status(500).json({ message: 'Internal server error', error });
   }
 };
 
+// Function to search properties by a search term
 const searchProperties = async (req, res) => {
   const searchTerm = req.query.searchTerm;
 
   try {
-    const properties = await Property.find({
-      title: { $regex: searchTerm, $options: 'i' },
-    });
-    res.status(200).json(properties);
+    // TODO: Define the logic to search properties based on the 'searchTerm'
+    // TODO: Respond with the matching properties
   } catch (error) {
+    // Handle errors by responding with a 500 Internal Server Error
     res.status(500).json({ message: 'Internal server error', error });
   }
 };
 
+// Function to filter properties based on location, price range, and type
 const filterProperties = async (req, res) => {
   const { location, minPrice, maxPrice, type } = req.query;
 
-  const filter = {};
-
-  if (location) filter.location = location;
-  if (minPrice) filter.price = { $gte: parseInt(minPrice) };
-  if (maxPrice) {
-    if (filter.price) filter.price.$lte = parseInt(maxPrice);
-    else filter.price = { $lte: parseInt(maxPrice) };
-  }
-  if (type) filter.type = type;
+  // TODO: Define the filtering logic to filter properties based on the provided query parameters
 
   try {
-    const properties = await Property.find(filter);
-    res.status(200).json(properties);
+    // TODO: Query the properties based on the filter criteria
+    // TODO: Respond with the filtered properties
   } catch (error) {
+    // Handle errors by responding with a 500 Internal Server Error
     res.status(500).json({ message: 'Internal server error', error });
   }
 };
